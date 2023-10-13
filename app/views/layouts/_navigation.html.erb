@@ -1,0 +1,10 @@
+<% if logged_in? %>
+  <%= button_to 'Logout', 'auth/logout', method: :get, data: { turbo: false } %>
+
+  <div>
+    <p>Name: <%= current_user["nickname"] %></p>
+    <p>Email: <%= current_user["name"] %></p>
+  </div>
+<% else %>
+  <%= button_to 'Login', '/auth/auth0', method: :post, data: {turbo: false} %>
+<% end %>
