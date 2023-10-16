@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_13_121943) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.integer "win"
@@ -20,4 +20,42 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_121943) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "competitors", force: :cascade do |t|
+    t.integer "competition_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_competitors_on_competition_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "competition_id"
+    t.integer "competitor1_id"
+    t.integer "competitor2_id"
+    t.integer "competitor1_score"
+    t.integer "competitor2_score"
+    t.datetime "datetime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_matches_on_competition_id"
+    t.index ["competitor1_id"], name: "index_matches_on_competitor1_id"
+    t.index ["competitor2_id"], name: "index_matches_on_competitor2_id"
+  end
+
+  create_table "standings", force: :cascade do |t|
+    t.integer "competition_id"
+    t.integer "competitor_id"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_standings_on_competition_id"
+    t.index ["competitor_id"], name: "index_standings_on_competitor_id"
+  end
+
+  add_foreign_key "competitors", "competitions"
+  add_foreign_key "matches", "competitions"
+  add_foreign_key "matches", "competitors", column: "competitor1_id"
+  add_foreign_key "matches", "competitors", column: "competitor2_id"
+  add_foreign_key "standings", "competitions"
+  add_foreign_key "standings", "competitors"
 end
