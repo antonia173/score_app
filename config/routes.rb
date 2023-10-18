@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "competitions#index"
+  resources :competitions
 
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'

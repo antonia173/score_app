@@ -1,7 +1,7 @@
 class CreateMatches < ActiveRecord::Migration[7.0]
   def change
     create_table :matches do |t|
-      t.references :competition, foreign_key: true
+      t.references :competition,  null: false, foreign_key: { on_delete: :cascade }
       t.references :competitor1, foreign_key: { to_table: :competitors }
       t.references :competitor2, foreign_key: { to_table: :competitors }
       t.integer :competitor1_score

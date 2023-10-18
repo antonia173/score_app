@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
   end
 
   create_table "competitors", force: :cascade do |t|
-    t.integer "competition_id"
+    t.integer "competition_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer "competition_id"
+    t.integer "competition_id", null: false
     t.integer "competitor1_id"
     t.integer "competitor2_id"
     t.integer "competitor1_score"
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
   end
 
   create_table "standings", force: :cascade do |t|
-    t.integer "competition_id"
+    t.integer "competition_id", null: false
     t.integer "competitor_id"
     t.integer "points"
     t.datetime "created_at", null: false
@@ -52,10 +52,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
     t.index ["competitor_id"], name: "index_standings_on_competitor_id"
   end
 
-  add_foreign_key "competitors", "competitions"
-  add_foreign_key "matches", "competitions"
+  add_foreign_key "competitors", "competitions", on_delete: :cascade
+  add_foreign_key "matches", "competitions", on_delete: :cascade
   add_foreign_key "matches", "competitors", column: "competitor1_id"
   add_foreign_key "matches", "competitors", column: "competitor2_id"
-  add_foreign_key "standings", "competitions"
+  add_foreign_key "standings", "competitions", on_delete: :cascade
   add_foreign_key "standings", "competitors"
 end
