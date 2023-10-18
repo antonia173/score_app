@@ -8,7 +8,7 @@ import "bootstrap"
 import "jquery"
 
 $(document).ready(function () {
-  $('form').on('submit', function (e) {
+  $('#competition-form').on('submit', function (e) {
     const competitorsValue = $('#competitors').val();
     const competitorsArray = competitorsValue.split(';').map(s => s.trim()); // Split and trim whitespace
     const competitorsCount = competitorsArray.filter(Boolean).length;

@@ -17,19 +17,20 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <div class="navbar-nav"> 
         <% if logged_in? %>
+          <%= link_to 'New Competition', new_competition_path, method: :get, data: {turbo: false}, class: "btn btn-primary mx-2"%>
           <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <%= current_user["nickname"] %>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><%= link_to "View your profile", "#", class: "dropdown-item"%></li>
               <li><%= link_to "Delete your profile", "#", class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } %></li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= button_to 'Logout', 'auth/logout', method: :get, data: { turbo: false }, class: "dropdown-item" %> </li>
+              <li><%= button_to 'Logout', auth_logout_path, method: :get, data: { turbo: false }, class: "dropdown-item" %> </li>
             </ul>
           </div>
         <% else %>
-          <%= button_to 'Login', '/auth/auth0', method: :post, data: {turbo: false}, class: "btn btn-primary"%>
+          <%= button_to 'Login',  '/auth/auth0', method: :post, data: {turbo: false}, class: "btn btn-primary"%>
         <% end %>
       </div>
     </div>
