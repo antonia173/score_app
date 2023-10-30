@@ -1,0 +1,18 @@
+<li class="list-group-item">
+<div class="row">
+  <div class="col-3 text-center border-end"><%= match.datetime.strftime("%d/%m/%Y %H:%M") %></div>
+  <div class="col-3">
+    <%= match.competitor1.name%>
+  </div>
+  <div class="col-3 text-center">
+    <% if match.competitor1_score.nil? || match.competitor2_score.nil? %>
+      -
+    <% else %>
+      <%= match.competitor1_score%> : <%= match.competitor2_score%>
+    <% end %>
+  </div>
+  <div class="col-3 text-end">
+    <%= match.competitor2.name%>
+  </div>
+</div>
+</li>

@@ -1,17 +1,14 @@
- <% @competitions.each do |competition| %>
-    <div class="col">
-      <div class="card text-center h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= competition.name %></h5>
-          <a href="#" class="btn btn-outline-primary btn-sm">Matches</a>
-          <a href="#" class="btn btn-outline-primary btn-sm">Standings</a>
-        </div>
-        <div class="card-footer text-body-secondary">
-          <%= time_ago_in_words(competition.created_at) %> ago
-        </div>
-      </div>
+<div class="col">
+  <div class="card text-center h-100">
+    <div class="card-body">
+      <h5 class="card-title"><%= competition.name %></h5>
+      <%= link_to "View", competition_path(competition), class: "btn btn-outline-primary btn-sm"%>
     </div>
-<% end %>
+    <div class="card-footer text-body-secondary">
+      <%= time_ago_in_words(competition.created_at) %> ago
+    </div>
+  </div>
+</div>
 
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_29_224026) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.integer "win"
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
     t.datetime "datetime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "round"
     t.index ["competition_id"], name: "index_matches_on_competition_id"
     t.index ["competitor1_id"], name: "index_matches_on_competitor1_id"
     t.index ["competitor2_id"], name: "index_matches_on_competitor2_id"
@@ -45,9 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_135431) do
   create_table "standings", force: :cascade do |t|
     t.integer "competition_id", null: false
     t.integer "competitor_id"
-    t.integer "points"
+    t.integer "points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "wins", default: 0
+    t.integer "losses", default: 0
+    t.integer "draws", default: 0
     t.index ["competition_id"], name: "index_standings_on_competition_id"
     t.index ["competitor_id"], name: "index_standings_on_competitor_id"
   end

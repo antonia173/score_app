@@ -1,4 +1,6 @@
 class CompetitionsController < ApplicationController
+  include MatchGenerator
+
   before_action :set_competition, only: [:show, :edit, :update, :destroy]
   before_action :require_user, except: [:show, :index]
 
@@ -10,6 +12,8 @@ class CompetitionsController < ApplicationController
 
   # GET /competitions/:id
   def show
+    @matches = @competition.matches.group_by(&:round)
+    @standings = @competition.standings.order(points: :desc)
   end
 
   # GET /competitions/new
@@ -17,7 +21,7 @@ class CompetitionsController < ApplicationController
     @competition = Competition.new
   end
 
-  # GET /articles/:id/edit
+  # GET /competitions/:id/edit
   def edit
   end
 
@@ -25,11 +29,8 @@ class CompetitionsController < ApplicationController
   def create
     @competition = Competition.new(competition_params.except(:competitors))
     if @competition.save
-      competitors_names = competition_params[:competitors].split(';').map(&:strip)
-
-      competitors_names.each do |name|
-        @competition.competitors.create(name: name)
-      end
+      create_competitors
+      generate_matches(@competition, @competition.competitors.size)
 
       flash[:notice] = "Competition was created successfully."
       redirect_to @competition
@@ -55,11 +56,19 @@ class CompetitionsController < ApplicationController
   end
 
   private
+  
   def set_competition
     @competition = Competition.find_by(id: params[:id])
   end
 
   def competition_params
     params.require(:competition).permit(:name, :win, :draw, :loss, :competitors)
+  end
+
+  def create_competitors
+    competitors_names = competition_params[:competitors].split(';').map(&:strip)
+    competitors_names.each do |name|
+      @competition.competitors.create(name: name)
+    end
   end
 end

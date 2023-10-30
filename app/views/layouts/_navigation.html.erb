@@ -23,7 +23,7 @@
               <%= current_user["nickname"] %>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to "View your profile", "#", class: "dropdown-item"%></li>
+              <li><%= link_to "My matches", "#", class: "dropdown-item"%></li>
               <li><%= link_to "Delete your profile", "#", class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } %></li>
               <li><hr class="dropdown-divider"></li>
               <li><%= button_to 'Logout', auth_logout_path, method: :get, data: { turbo: false }, class: "dropdown-item" %> </li>

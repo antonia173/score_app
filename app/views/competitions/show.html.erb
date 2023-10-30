@@ -1,0 +1,49 @@
+<h1 class="text-center my-4"><%= @competition.name %></h1>
+
+<div class="row  justify-content-evenly">
+      <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card p-0">
+        <div class="card-header text-center bg-primary fw-bold text-light">Standings</div>
+        <div class="card-header fw-bold">
+          <div class="row">
+            <div class="col-1">#</div>
+            <div class="col-6">Team</div>
+            <div class="col-1 text-center">W</div>
+            <div class="col-1 text-center">D</div>
+            <div class="col-1 text-center">L</div>
+            <div class="col-2 text-center">PTS</div>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% @standings.each_with_index do |standing, index| %>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-1"><%= index + 1 %></div>
+                <div class="col-6"><%= standing.competitor.name %></div>
+                <div class="col-1 text-center"><%= standing.wins %></div>
+                <div class="col-1 text-center"><%= standing.draws %></div>
+                <div class="col-1 text-center"><%= standing.losses%></div>
+                <div class="col-2 text-center"><%= standing.points %></div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <div class="card-footer text-body-secondary text-center">Last edited: <%= time_ago_in_words(@standings.order(updated_at: :desc).first.updated_at) %> ago</div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-8" >
+      <div class="card p-0" style="height: 35%;">
+        <div class="card-header text-center bg-primary fw-bold text-light">Matches</div>
+        <div class="card-body p-0" style="overflow-y: auto;" id="cards-container">
+          <% @matches.each do |round, matches| %>
+            <div class="card-header fw-bold text-center">Round <%= round %></div>
+            <ul class="list-group list-group-flush">
+                <%= render partial: 'matches/match', collection: matches %>
+            </ul>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
+</div>
