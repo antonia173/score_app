@@ -1,0 +1,30 @@
+<div class="container mb-3">
+  <%= form_with(model: @match, url: update_matches_path(@match), class: "row justify-content-center", local: true, id: "match-form") do |f| %>
+    <div class="col-lg-6 col-md-10 col-sm-10 bg-dark rounded p-4">
+      <div class="row mb-3 g-2">
+        <div class="col-md-3">
+          <%= f.label :competitor1_score, "#{@match.competitor1.name}", class: "text-light pt-1" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.number_field :competitor1_score, class: "form-control", id: "competitior1-score" %>
+        </div>
+      </div>
+
+      <div class="row mb-3 g-2">
+        <div class="col-md-3">
+          <%= f.label :competitor2_score, "#{@match.competitor2.name}", class: "text-light pt-1" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.number_field :competitor2_score, class: "form-control", id: "competitior2-score" %>
+        </div>
+      </div>
+
+      <div class="mt-3 d-flex justify-content-center">
+          <%= f.submit class: "btn btn-primary btn-md"%>  
+      </div>
+      <div class="mt-1 d-flex justify-content-center">
+        <%= link_to '[ Cancel ]', user_matches_path(current_user), class: "text-info" %> 
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :require_user
 
   def current_user
-    @current_user ||= session[:userinfo]
+    @current_user ||= User.find_by(email: session["userinfo"]["name"]) if session[:userinfo]
   end
 
   def logged_in?

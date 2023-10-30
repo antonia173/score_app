@@ -1,0 +1,18 @@
+<h1 class="text-center mt-4">My Competitions</h1>
+
+<div class="container" id="show">
+  <% @competitions.each do |competition| %>
+    <div class="row justify-content-md-center">
+      <div class="col-8 mt-4" style="height: 40%;">
+        <div class="card p-0" >
+        <div class="card-header text-center bg-primary fw-bold text-light"><%= competition.name %></div>
+        <div class="card-body p-0" style="overflow-y: auto;" id="cards-container">
+          <ul class="list-group list-group-flush">
+              <%= render partial: 'matches/match', collection: competition.matches %>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  <% end %>
+</div>

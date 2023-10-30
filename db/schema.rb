@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_29_224026) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_034617) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.integer "win"
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_29_224026) do
     t.integer "loss"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_competitions_on_user_id"
   end
 
   create_table "competitors", force: :cascade do |t|
@@ -56,6 +58,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_29_224026) do
     t.index ["competitor_id"], name: "index_standings_on_competitor_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "auth0_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "competitions", "users"
   add_foreign_key "competitors", "competitions", on_delete: :cascade
   add_foreign_key "matches", "competitions", on_delete: :cascade
   add_foreign_key "matches", "competitors", column: "competitor1_id"

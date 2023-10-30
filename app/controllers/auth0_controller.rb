@@ -2,6 +2,10 @@ class Auth0Controller < ApplicationController
   def callback
     auth_info = request.env['omniauth.auth']
     session[:userinfo] = auth_info['extra']['raw_info']
+    user = User.find_or_create_by(auth0_id: session[:userinfo][:sub]) do |user|
+      user.email = session[:userinfo][:name]
+      user.username = session[:userinfo][:nickname]
+    end
     redirect_to root_url
   end
 

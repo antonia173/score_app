@@ -28,6 +28,7 @@ class CompetitionsController < ApplicationController
   # POST /competitions
   def create
     @competition = Competition.new(competition_params.except(:competitors))
+    @competition.user = current_user
     if @competition.save
       create_competitors
       generate_matches(@competition, @competition.competitors.size)
@@ -41,7 +42,7 @@ class CompetitionsController < ApplicationController
 
   # PUT /competition/:id
   def update
-    if @competition.update(article_params.except(:competitors))
+    if @competition.update(competition_params.except(:competitors))
       flash[:notice] = "Competition was updated successfully."
       redirect_to @competition
     else
